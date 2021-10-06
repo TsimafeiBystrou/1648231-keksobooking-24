@@ -1,16 +1,22 @@
 const getRandomNumber = (min, max) => {
-  if (max > min && min >= 0 && max > 0) {
-    return Math.round(Math.random() * (max - min) + min);
+  if (max < 0 || max < 0) {
+    return -1;
   }
-  throw new Error('Неверное значение');
+  if (min > max) {
+    [min, max] =[max, min];
+  }
+  return Math.round(Math.random() * (max - min) + min);
 };
 
 const getRandomDecimal = (min, max, decimalNumber) => {
-  if (max > min && min >= 0 && max > 0) {
-    return (min + Math.random() * (max - min)).toFixed(decimalNumber);
+  if (max < 0 || max < 0) {
+    return -1;
   }
-  throw new RangeError('Неверное значение');
-};
+  if (min > max) {
+    [min, max] =[max, min];
+  }
+  return (min + Math.random() * (max - min)).toFixed(decimalNumber);
+  };
 
 getRandomNumber(10,100);
 getRandomDecimal(10,100,1);
