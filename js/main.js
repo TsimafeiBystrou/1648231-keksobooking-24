@@ -16,17 +16,16 @@ const getRandomDecimal = (min, max, decimalNumber) => {
     [min, max] =[max, min];
   }
   return (min + Math.random() * (max - min)).toFixed(decimalNumber);
-  };
-
-const receiveRandom = (maxNumber) => {
-  return Math.round(Math.random() * maxNumber);
 };
 
+
+const receiveRandom = (maxNumber) => Math.round(Math.random() * maxNumber);
+
 const getRandomArray = (arr) => {
-  let numberRandom = receiveRandom(arr.length);
-  let arrClon = arr.slice();
-  let arrNew = [];
-  let numberArrRandom;
+  const numberRandom = receiveRandom(arr.length);
+  const arrClon = arr.slice();
+  const arrNew = [];
+  const numberArrRandom;
 
   for (let i = 0; i < numberRandom; i++) {
     numberArrRandom = receiveRandom(arrClon.length - 1);
