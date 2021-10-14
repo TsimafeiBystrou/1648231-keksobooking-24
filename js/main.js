@@ -1,1 +1,4 @@
-import {getOffer} from './data.js';
+import {renderCards, createOffer} from './cards.js';
+
+renderCards(createOffer);
+

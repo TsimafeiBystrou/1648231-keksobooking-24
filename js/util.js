@@ -41,3 +41,33 @@ const getRandomElement = (arr) => {
 };
 
 export {getRandomNumber, getRandomDecimal, getRandomArray, getRandomElement};
+
+////////////////////↓ Функция из скайп задачки ↓/////////////////////////////
+function numDecline(num, nominative, genitiveSingular, genitivePlural) {
+  if (num >= 5 && num <= 20) {
+    return genitivePlural
+  }
+  else {
+    num = num % 10;
+    if (num == 1) {
+        return nominative
+    } else if (num >= 2 && num <= 4) {
+        return genitiveSingular
+    } else {
+        return genitivePlural
+    }
+  }
+}
+numDecline(101, 'гость', 'гостя', 'гостей');
+// Нашел функцию что ниже в интернете(как и полагается лентяю) и уже на ее основе искал варианты решения,
+//  что бы подходило все под условия поставленные тобой ;) Вроде все работает как положено
+
+// function declOfNum(number, titles) {
+//   cases = [2, 0, 1, 1, 1, 2];
+//   return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+// }
+// use:
+// declOfNum(count, ['найдена', 'найдено', 'найдены']);
+
+// Источник - https://gist.github.com/realmyst/1262561
+
