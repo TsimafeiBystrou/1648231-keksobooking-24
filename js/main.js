@@ -1,4 +1,4 @@
-import {renderCards, createOffer} from './cards.js';
+import {renderCard, createOffer} from './cards.js';
 
-renderCards(createOffer);
+renderCard(createOffer);
 

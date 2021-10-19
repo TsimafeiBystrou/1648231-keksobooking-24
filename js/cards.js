@@ -56,9 +56,4 @@ const renderCard = (container, card) => {
   container.appendChild(createCard(card));
 };
 
-const renderCards = (array) => {
-  array.forEach((item) => {
-    renderCard(map, createCard(item))
-});
-
-export {renderCards, createOffer};
+export {renderCard, createOffer};
