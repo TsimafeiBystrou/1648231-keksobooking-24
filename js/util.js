@@ -41,3 +41,5 @@ const getRandomElement = (arr) => {
 };
 
 export {getRandomNumber, getRandomDecimal, getRandomArray, getRandomElement};
+
+
