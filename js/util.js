@@ -25,10 +25,10 @@ const getRandomArray = (arr) => {
   const numberRandom = receiveRandom(arr.length);
   const arrClon = arr.slice();
   const arrNew = [];
-  const numberArrRandom;
+  const numberArrRandom = receiveRandom(arrClon.length - 1);
 
   for (let i = 0; i < numberRandom; i++) {
-    numberArrRandom = receiveRandom(arrClon.length - 1);
+    numberArrRandom;
     arrNew[i] = arrClon[numberArrRandom];
     arrClon.splice(numberArrRandom, 1);
   }

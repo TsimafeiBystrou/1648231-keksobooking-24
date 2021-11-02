@@ -91,10 +91,12 @@ time.addEventListener('change', onTimeChange);
 
 // валидация типа жилья и его стоимости
 const onPriceChange = () => {
-  const priceSelect = minPrices [type.value];
+  const priceSelect = minPrices[type.value];
   price.placeholder = priceSelect;
   price.min = priceSelect;
 
 };
 
 type.addEventListener('change', onPriceChange);
+
+export { setFormState };
