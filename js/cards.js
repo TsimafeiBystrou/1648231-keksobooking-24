@@ -10,23 +10,22 @@ const houseType = {
   hotel: 'Отель'
 };
 
-const map = document.querySelector('#map__canvas');
 const similarCard = document.querySelector('#card')
-.content
-.querySelector('.popup');
+  .content
+  .querySelector('.popup');
 
 const renderPhotos = (container, photos) => {
   container.innerHTML = '';
-  photos.forEach((src) => {
+  Object.keys(photos).forEach((src) => {
     const img = document.createElement('img');
     img.src = src;
     container.appendChild(img);
   });
 };
 
-function renderFeature = (container, feature) => {
+const renderFeature = (container, feature) => {
   container.innerHTML = '';
-  feature.forEach((item) => {
+  Object.keys(feature).forEach((item)  => {
     const featureItem = document.createElement('li');
     featureItem.classList.add('popup__feature', `popup__feature--${item}`);
     container.appendChild(featureItem);
@@ -56,4 +55,4 @@ const renderCard = (container, card) => {
   container.appendChild(createCard(card));
 };
 
-export {renderCard, createOffer};
+export {createOffer, createCard};

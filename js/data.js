@@ -44,6 +44,9 @@ const getOffer = () => ({
   },
 });
 
-getOffer(1);
+const NUMBER_OF_OFFERS = 10;
 
-export {getOffer};
+const similarOffers = () => Array(NUMBER_OF_OFFERS).fill(null).map(getOffer);
+
+export {getOffer, similarOffers};
+

@@ -1,6 +1,7 @@
-import {renderCard, createOffer} from './cards.js';
+// import './cards.js';
 import './form.js';
+import './map.js';
+// import { secondaryMarkers } from './map.js';
 
-renderCard(createOffer);
 
 
