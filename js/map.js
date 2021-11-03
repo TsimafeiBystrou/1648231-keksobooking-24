@@ -5,6 +5,13 @@ import { similarOffers } from "./data.js";
 const mapContainer = document.querySelector('#map-canvas');
 const address = document.querySelector('#address');
 
+const LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+const MAIN_MARKER_SIZE = [52, 52];
+const MAIN_MARKER_ANCHOR = [26, 52];
+const SECONDARY_MARKER_SIZE = [40, 40];
+const SECONDARY_MARKER_ANCHOR = [20, 40];
+
 const cityCenter = {
   lat: 35.680838,
   lng: 139.767579,
@@ -16,16 +23,16 @@ map.on('load', () => {
 })
   .setView(cityCenter, 12);
 L.tileLayer(
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  LAYER,
   {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    attribution: LAYER_ATTRIBUTION,
   },
 ).addTo(map);
 
 const mainMarkerIcon = L.icon({
-  iconUrl: '../img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconUrl: 'img/main-pin.svg',
+  iconSize: MAIN_MARKER_SIZE,
+  iconAnchor: MAIN_MARKER_ANCHOR,
 });
 
 const mainMarker = L.marker (
@@ -47,9 +54,9 @@ mainMarker.on('moveend', (evt) => {
 });
 
 const secondaryIcon = L.icon({
-  iconUrl: '../img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconUrl: 'img/pin.svg',
+  iconSize: SECONDARY_MARKER_SIZE,
+  iconAnchor: SECONDARY_MARKER_ANCHOR,
 });
 
 const secondaryMarker = (data) => {
