@@ -7,7 +7,7 @@ const houseType = {
   bungalo: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-  hotel: 'Отель'
+  hotel: 'Отель',
 };
 
 const similarCard = document.querySelector('#card')
@@ -15,7 +15,6 @@ const similarCard = document.querySelector('#card')
   .querySelector('.popup');
 
 const renderPhotos = (container, photos) => {
-  container.innerHTML = '';
   Object.keys(photos).forEach((src) => {
     const img = document.createElement('img');
     img.src = src;
@@ -24,7 +23,6 @@ const renderPhotos = (container, photos) => {
 };
 
 const renderFeature = (container, feature) => {
-  container.innerHTML = '';
   Object.keys(feature).forEach((item)  => {
     const featureItem = document.createElement('li');
     featureItem.classList.add('popup__feature', `popup__feature--${item}`);

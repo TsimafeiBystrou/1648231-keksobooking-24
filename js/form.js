@@ -1,3 +1,7 @@
+import { sendData } from './fetch.js';
+import { setAddress, cityCenter, mainMarker } from './map.js';
+import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
+
 const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
 
 const setFormState = () => {
@@ -12,6 +16,8 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 1000000;
+const form = document.querySelector('.ad-form');
+const resetButton = document.querySelector('.ad-form__reset');
 const title = document.querySelector('#title');
 const price = document.querySelector('#price');
 const roomNumber = document.querySelector('#room_number');
@@ -36,7 +42,6 @@ const minPrices = {
   palace: 10000,
 };
 
-// валижация заголовока
 title.addEventListener('input', () => {
   const valueLength = title.value.length;
   if (valueLength < MIN_TITLE_LENGTH) {
@@ -49,7 +54,6 @@ title.addEventListener('input', () => {
   title.reportValidity();
 });
 
-// валидация стоимости
 price.addEventListener('input', () => {
   const priceForRoom = price.value.length;
   if (priceForRoom < MIN_PRICE_VALUE) {
@@ -63,7 +67,6 @@ price.addEventListener('input', () => {
   price.reportValidity();
 });
 
-// валидация гостей и комнат
 const validateRooms = () => {
   const roomValue = roomNumber.value;
 
@@ -81,7 +84,6 @@ const onRoomNumberChange = () => {
 
 roomNumber.addEventListener('change', onRoomNumberChange);
 
-// валидация чек-ина / чек-аута
 const onTimeChange = (evt) => {
   timeOut.value = evt.target.value;
   timeIn.value = evt.target.value;
@@ -89,7 +91,6 @@ const onTimeChange = (evt) => {
 
 time.addEventListener('change', onTimeChange);
 
-// валидация типа жилья и его стоимости
 const onPriceChange = () => {
   const priceSelect = minPrices[type.value];
   price.placeholder = priceSelect;
@@ -98,5 +99,28 @@ const onPriceChange = () => {
 };
 
 type.addEventListener('change', onPriceChange);
+
+const resetForm = () => {
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    form.reset();
+    setAddress(cityCenter);
+    mainMarker.setLatLng(cityCenter);
+  });
+};
+
+resetForm();
+
+// сообщения при отправке формы
+form.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+
+  sendData(
+    () => (renderSuccessMesssage(),form.reset(), setAddress(cityCenter)),
+    () => (renderErrorMesssage(),setAddress(cityCenter)),
+    new FormData(evt.target),
+  );
+});
+
 
 export { setFormState };

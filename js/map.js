@@ -59,7 +59,7 @@ const secondaryIcon = L.icon({
   iconAnchor: SECONDARY_MARKER_ANCHOR,
 });
 
-const secondaryMarker = (data) => {
+const secondaryMarkers = (data) => {
   data.forEach((offer) => {
     const marker = L.marker({
       lat: offer.location.lat,
@@ -77,4 +77,4 @@ const secondaryMarker = (data) => {
   });
 };
 
-secondaryMarker(similarOffers());
+export { setAddress, cityCenter, secondaryMarkers, mainMarker };
