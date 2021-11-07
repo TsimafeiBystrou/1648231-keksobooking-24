@@ -1,16 +1,17 @@
-import { sendData } from './fetch.js';
 import { setAddress, cityCenter, mainMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
+import { serverRequest } from './fetch.js';
 
-const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
 
-const setFormState = () => {
-  fields.forEach((item) => {
-    item.disabled = !item.disabled;
-  });
-};
+// const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
 
-setFormState();
+// const setFormState = () => {
+//   fields.forEach((item) => {
+//     item.disabled = !item.disabled;
+//   });
+// };
+
+// setFormState();
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -112,15 +113,27 @@ const resetForm = () => {
 resetForm();
 
 // сообщения при отправке формы
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
 
-  sendData(
-    () => (renderSuccessMesssage(),form.reset(), setAddress(cityCenter)),
-    () => (renderErrorMesssage(),setAddress(cityCenter)),
-    new FormData(evt.target),
-  );
-});
+const renderSuccess = () => {
+  renderSuccessMesssage();
+  form.reset();
+  setAddress(cityCenter);
+};
 
+const renderError = () => {
+  renderErrorMesssage();
+  setAddress(cityCenter);
+};
 
-export { setFormState };
+const renderMessages = () => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const formData = new FormData(evt.target);
+    serverRequest(renderSuccess, renderError, 'POST', formData);
+  });
+};
+
+renderMessages();
+
+// export { setFormState };

@@ -1,29 +1,23 @@
-const getData = (onSucces) => {
-  fetch('https://24.javascript.pages.academy/keksobooking/data')
-    .then((response) => response.json())
-    .then((offersData) => {
-      onSucces(offersData);
-    });
+const Urls = {
+  GET: 'https://24.javascript.pages.academy/keksobooking/data',
+  POST: 'https://24.javascript.pages.academy/keksobooking',
 };
 
-const sendData = (onSucces, onFail, body) => {
+const serverRequest = (onSuccess, onError, method, body) => {
   fetch(
-    'https://24.javascript.pages.academy/keksobooking',
+    Urls[method],
     {
-      method: 'POST',
-      body,
+      method: method,
+      body: body,
     },
   )
-    .then((response) => {
-      if (response.ok) {
-        onSucces();
-      } else{
-        onFail();
-      }
-    })
-    .catch(() => {
-      onFail();
-    });
+    .then((response) => response.json()
+      .then ((data) => {
+        onSuccess(data);
+      })
+      .catch((err) => {
+        onError(err);
+      }));
 };
 
-export { getData, sendData };
+export { serverRequest };

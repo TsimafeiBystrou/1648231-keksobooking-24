@@ -1,15 +1,20 @@
-// import './cards.js';
-// import './form.js';
-// import './map.js';
-// import { secondaryMarkers } from './map.js';
-
+import './cards.js';
+import './form.js';
+import './map.js';
 import { secondaryMarkers } from './map.js';
-import { getData } from './fetch.js';
+import { serverRequest } from './fetch.js';
+
 const OFFERS_COUNT = 10;
 
-getData((ads) => {
-  secondaryMarkers(ads.slice(0, OFFERS_COUNT));
-});
+let pins = [];
 
+const onSuccess = (data) => {
+  pins = data.slice();
+  secondaryMarkers(pins.slice(0, OFFERS_COUNT));
+};
 
+const onError = () => {
+  alert('Произошла ошибка!');
+};
 
+serverRequest(onSuccess, onError, 'GET');

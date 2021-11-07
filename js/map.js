@@ -1,6 +1,5 @@
-import { setFormState } from "./form.js";
+// import { setFormState } from "./form.js";
 import { createCard } from "./cards.js";
-import { similarOffers } from "./data.js";
 
 const mapContainer = document.querySelector('#map-canvas');
 const address = document.querySelector('#address');
@@ -18,6 +17,15 @@ const cityCenter = {
 };
 
 const map = L.map(mapContainer);
+
+const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
+
+const setFormState = () => {
+  fields.forEach((item) => {
+    item.disabled = !item.disabled;
+  });
+};
+
 map.on('load', () => {
   setFormState();
 })

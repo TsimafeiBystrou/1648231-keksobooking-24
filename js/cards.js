@@ -14,6 +14,8 @@ const similarCard = document.querySelector('#card')
   .content
   .querySelector('.popup');
 
+// const photosContainer = document.querySelector('.popup__photos');
+
 const renderPhotos = (container, photos) => {
   Object.keys(photos).forEach((src) => {
     const img = document.createElement('img');
