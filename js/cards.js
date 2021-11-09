@@ -1,13 +1,9 @@
-import {getOffer} from './data.js';
-
-const createOffer = getOffer;
-
 const houseType = {
   flat: 'Квартира',
   bungalo: 'Бунгало',
   house: 'Дом',
   palace: 'Дворец',
-  hotel: 'Отель'
+  hotel: 'Отель',
 };
 
 const similarCard = document.querySelector('#card')
@@ -16,16 +12,19 @@ const similarCard = document.querySelector('#card')
 
 const renderPhotos = (container, photos) => {
   container.innerHTML = '';
-  Object.keys(photos).forEach((src) => {
+  photos.forEach((src) => {
     const img = document.createElement('img');
     img.src = src;
+    img.classList.add('.popup__photo');
+    img.width = 45;
+    img.height = 40;
     container.appendChild(img);
   });
 };
 
 const renderFeature = (container, feature) => {
   container.innerHTML = '';
-  Object.keys(feature).forEach((item)  => {
+  feature.forEach((item)  => {
     const featureItem = document.createElement('li');
     featureItem.classList.add('popup__feature', `popup__feature--${item}`);
     container.appendChild(featureItem);
@@ -43,16 +42,21 @@ const createCard = (card) => {
   offerElement.querySelector('.popup__avatar').src = card.author.avatar;
 
   const offerFeatures = offerElement.querySelector('.popup__features');
-  renderFeature(card.offer.features, offerFeatures);
+  if (card.offer.features) {
+    renderFeature(offerFeatures, card.offer.features);
+  } else {
+    offerFeatures.remove();
+  }
 
   const offerPhotos = offerElement.querySelector('.popup__photos');
-  renderPhotos(card.offer.photos, offerPhotos);
+  if (card.offer.photos) {
+    renderPhotos(offerPhotos, card.offer.photos);
+  } else {
+    offerPhotos.remove();
+  }
 
   return offerElement;
 };
 
-const renderCard = (container, card) => {
-  container.appendChild(createCard(card));
-};
 
-export {createOffer, createCard};
+export {createCard};

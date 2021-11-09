@@ -40,6 +40,8 @@ const getRandomElement = (arr) => {
   return arr[numberRandom];
 };
 
-export {getRandomNumber, getRandomDecimal, getRandomArray, getRandomElement};
+const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
+export {getRandomNumber, getRandomDecimal, getRandomArray, getRandomElement, isEscEvent};
 
 
