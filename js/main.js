@@ -3,6 +3,8 @@ import './form.js';
 import './map.js';
 import { secondaryMarkers } from './map.js';
 import { serverRequest } from './fetch.js';
+import { serverErrorMessage } from './message.js';
+
 
 const OFFERS_COUNT = 10;
 
@@ -14,7 +16,7 @@ const onSuccess = (data) => {
 };
 
 const onError = () => {
-  alert('Произошла ошибка!');
+  serverErrorMessage();
 };
 
 serverRequest(onSuccess, onError, 'GET');

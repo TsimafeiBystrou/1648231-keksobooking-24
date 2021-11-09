@@ -1,8 +1,4 @@
-// import { setFormState } from "./form.js";
 import { createCard } from "./cards.js";
-
-const mapContainer = document.querySelector('#map-canvas');
-const address = document.querySelector('#address');
 
 const LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -10,6 +6,13 @@ const MAIN_MARKER_SIZE = [52, 52];
 const MAIN_MARKER_ANCHOR = [26, 52];
 const SECONDARY_MARKER_SIZE = [40, 40];
 const SECONDARY_MARKER_ANCHOR = [20, 40];
+const ZOOM = 12;
+
+const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
+const mapContainer = document.querySelector('#map-canvas');
+const address = document.querySelector('#address');
+const adForm = document.querySelector('.ad-form');
+const filterForm = document.querySelector('.map__filters');
 
 const cityCenter = {
   lat: 35.680838,
@@ -18,18 +21,19 @@ const cityCenter = {
 
 const map = L.map(mapContainer);
 
-const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
-
 const setFormState = () => {
   fields.forEach((item) => {
     item.disabled = !item.disabled;
   });
+
+  adForm.classList.toggle('.ad-form--disabled');
+  filterForm.classList.toggle('.map__filters--disabled');
 };
 
 map.on('load', () => {
   setFormState();
 })
-  .setView(cityCenter, 12);
+  .setView(cityCenter, ZOOM);
 L.tileLayer(
   LAYER,
   {
@@ -84,5 +88,7 @@ const secondaryMarkers = (data) => {
     };
   });
 };
+
+setFormState();
 
 export { setAddress, cityCenter, secondaryMarkers, mainMarker };

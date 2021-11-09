@@ -56,4 +56,11 @@ const renderSuccessMesssage = () => {
   document.addEventListener('keydown', (onEscapeClick));
 };
 
-export { renderErrorMesssage, renderSuccessMesssage };
+const serverErrorMessage = () => {
+  const serverMessage = document.querySelector('#server__error').content.querySelector('.server__error').cloneNode(true);
+
+  document.body.appendChild(serverMessage);
+
+};
+
+export { renderErrorMesssage, renderSuccessMesssage, serverErrorMessage };

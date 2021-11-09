@@ -2,17 +2,6 @@ import { setAddress, cityCenter, mainMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { serverRequest } from './fetch.js';
 
-
-// const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
-
-// const setFormState = () => {
-//   fields.forEach((item) => {
-//     item.disabled = !item.disabled;
-//   });
-// };
-
-// setFormState();
-
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
@@ -135,5 +124,3 @@ const renderMessages = () => {
 };
 
 renderMessages();
-
-// export { setFormState };
