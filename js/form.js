@@ -61,7 +61,7 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1 ); // методом indexOf идет поиск первого индекса guest.value среди массива maxGuestsInRoom[roomValue]
+    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1); // методом indexOf идет поиск первого индекса guest.value среди массива maxGuestsInRoom[roomValue]
     guest.selected = maxGuestsInRoom[roomValue][0] === guest.value; // в случае, если value равно первому элементу в массиве, добавляется атбибут selected, в остальных случаях добавляются disabled и hidden
     guest.disabled = isDisabled;
     guest.hidden = isDisabled;

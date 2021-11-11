@@ -24,7 +24,7 @@ const renderPhotos = (container, photos) => {
 
 const renderFeature = (container, feature) => {
   container.innerHTML = '';
-  feature.forEach((item)  => {
+  feature.forEach((item) => {
     const featureItem = document.createElement('li');
     featureItem.classList.add('popup__feature', `popup__feature--${item}`);
     container.appendChild(featureItem);
@@ -59,4 +59,4 @@ const createCard = (card) => {
 };
 
 
-export {createCard};
+export { createCard };

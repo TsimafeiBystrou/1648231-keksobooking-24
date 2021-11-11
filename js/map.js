@@ -1,4 +1,4 @@
-import { createCard } from "./cards.js";
+import { createCard } from './cards.js';
 
 const LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -47,11 +47,11 @@ const mainMarkerIcon = L.icon({
   iconAnchor: MAIN_MARKER_ANCHOR,
 });
 
-const mainMarker = L.marker (
+const mainMarker = L.marker(
   cityCenter, {
-    draggable: true,
-    icon: mainMarkerIcon,
-  });
+  draggable: true,
+  icon: mainMarkerIcon,
+});
 
 mainMarker.addTo(map);
 
@@ -89,6 +89,12 @@ const secondaryMarkers = (data) => {
   });
 };
 
+const markers = [];
+
+const clearMarkers = () => {
+  markers.forEach((marker) => marker.remove());
+};
+
 setFormState();
 
-export { setAddress, cityCenter, secondaryMarkers, mainMarker };
+export { setAddress, cityCenter, mainMarker, clearMarkers, secondaryMarkers };
