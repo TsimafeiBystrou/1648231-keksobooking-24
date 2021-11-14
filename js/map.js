@@ -13,13 +13,13 @@ const mapContainer = document.querySelector('#map-canvas');
 const address = document.querySelector('#address');
 const adForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
+const map = L.map(mapContainer);
+const layerGroup = L.layerGroup().addTo(map);
 
 const cityCenter = {
   lat: 35.680838,
   lng: 139.767579,
 };
-
-const map = L.map(mapContainer);
 
 const setFormState = () => {
   fields.forEach((item) => {
@@ -49,9 +49,9 @@ const mainMarkerIcon = L.icon({
 
 const mainMarker = L.marker(
   cityCenter, {
-  draggable: true,
-  icon: mainMarkerIcon,
-});
+    draggable: true,
+    icon: mainMarkerIcon,
+  });
 
 mainMarker.addTo(map);
 
@@ -71,6 +71,10 @@ const secondaryIcon = L.icon({
   iconAnchor: SECONDARY_MARKER_ANCHOR,
 });
 
+const removeMapPin = () => {
+  layerGroup.clearLayers();
+};
+
 const secondaryMarkers = (data) => {
   data.forEach((offer) => {
     const marker = L.marker({
@@ -81,7 +85,7 @@ const secondaryMarkers = (data) => {
     });
 
     marker
-      .addTo(map)
+      .addTo(layerGroup)
       .bindPopup(createCard(offer)),
     {
       keepInView: true,
@@ -89,12 +93,6 @@ const secondaryMarkers = (data) => {
   });
 };
 
-const markers = [];
-
-const clearMarkers = () => {
-  markers.forEach((marker) => marker.remove());
-};
-
 setFormState();
 
-export { setAddress, cityCenter, mainMarker, clearMarkers, secondaryMarkers };
+export { setAddress, cityCenter, mainMarker, secondaryMarkers, removeMapPin };

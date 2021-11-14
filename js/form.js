@@ -101,8 +101,6 @@ const resetForm = () => {
 
 resetForm();
 
-// сообщения при отправке формы
-
 const renderSuccess = () => {
   renderSuccessMesssage();
   form.reset();
