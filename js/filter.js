@@ -37,7 +37,7 @@ const filterRules = {
 };
 
 const filterData = (data) => {
-  let filtredOffers = [];
+  const filtredOffers = [];
   let i = 0;
   let result;
 

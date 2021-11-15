@@ -93,6 +93,12 @@ const secondaryMarkers = (data) => {
   });
 };
 
+const resetMapAndMarker = () => {
+  mainMarker.setLatLng(cityCenter);
+  setAddress(cityCenter);
+  map.closePopup();
+};
+
 setFormState();
 
-export { setAddress, cityCenter, mainMarker, secondaryMarkers, removeMapPin };
+export { setAddress, resetMapAndMarker, secondaryMarkers, removeMapPin };

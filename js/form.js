@@ -1,4 +1,4 @@
-import { setAddress, cityCenter, mainMarker } from './map.js';
+import { resetMapAndMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { serverRequest } from './fetch.js';
 
@@ -94,8 +94,7 @@ const resetForm = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     form.reset();
-    setAddress(cityCenter);
-    mainMarker.setLatLng(cityCenter);
+    resetMapAndMarker();
   });
 };
 
@@ -104,12 +103,12 @@ resetForm();
 const renderSuccess = () => {
   renderSuccessMesssage();
   form.reset();
-  setAddress(cityCenter);
+  resetMapAndMarker();
 };
 
 const renderError = () => {
   renderErrorMesssage();
-  setAddress(cityCenter);
+  resetMapAndMarker();
 };
 
 const renderMessages = () => {
