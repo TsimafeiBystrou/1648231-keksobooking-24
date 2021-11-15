@@ -12,7 +12,7 @@ const serverRequest = (onSuccess, onError, method, body) => {
     },
   )
     .then((response) => response.json()
-      .then ((data) => {
+      .then((data) => {
         onSuccess(data);
       })
       .catch((err) => {

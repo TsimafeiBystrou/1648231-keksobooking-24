@@ -1,4 +1,4 @@
-import { createCard } from "./cards.js";
+import { createCard } from './cards.js';
 
 const LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -13,13 +13,13 @@ const mapContainer = document.querySelector('#map-canvas');
 const address = document.querySelector('#address');
 const adForm = document.querySelector('.ad-form');
 const filterForm = document.querySelector('.map__filters');
+const map = L.map(mapContainer);
+const layerGroup = L.layerGroup().addTo(map);
 
 const cityCenter = {
   lat: 35.680838,
   lng: 139.767579,
 };
-
-const map = L.map(mapContainer);
 
 const setFormState = () => {
   fields.forEach((item) => {
@@ -47,7 +47,7 @@ const mainMarkerIcon = L.icon({
   iconAnchor: MAIN_MARKER_ANCHOR,
 });
 
-const mainMarker = L.marker (
+const mainMarker = L.marker(
   cityCenter, {
     draggable: true,
     icon: mainMarkerIcon,
@@ -71,6 +71,10 @@ const secondaryIcon = L.icon({
   iconAnchor: SECONDARY_MARKER_ANCHOR,
 });
 
+const removeMapPin = () => {
+  layerGroup.clearLayers();
+};
+
 const secondaryMarkers = (data) => {
   data.forEach((offer) => {
     const marker = L.marker({
@@ -81,7 +85,7 @@ const secondaryMarkers = (data) => {
     });
 
     marker
-      .addTo(map)
+      .addTo(layerGroup)
       .bindPopup(createCard(offer)),
     {
       keepInView: true,
@@ -89,6 +93,12 @@ const secondaryMarkers = (data) => {
   });
 };
 
+const resetMapAndMarker = () => {
+  mainMarker.setLatLng(cityCenter);
+  setAddress(cityCenter);
+  map.closePopup();
+};
+
 setFormState();
 
-export { setAddress, cityCenter, secondaryMarkers, mainMarker };
+export { setAddress, resetMapAndMarker, secondaryMarkers, removeMapPin };

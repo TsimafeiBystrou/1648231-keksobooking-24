@@ -1,4 +1,4 @@
-import { setAddress, cityCenter, mainMarker } from './map.js';
+import { resetMapAndMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { serverRequest } from './fetch.js';
 
@@ -61,7 +61,7 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1 ); // методом indexOf идет поиск первого индекса guest.value среди массива maxGuestsInRoom[roomValue]
+    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1); // методом indexOf идет поиск первого индекса guest.value среди массива maxGuestsInRoom[roomValue]
     guest.selected = maxGuestsInRoom[roomValue][0] === guest.value; // в случае, если value равно первому элементу в массиве, добавляется атбибут selected, в остальных случаях добавляются disabled и hidden
     guest.disabled = isDisabled;
     guest.hidden = isDisabled;
@@ -94,24 +94,21 @@ const resetForm = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     form.reset();
-    setAddress(cityCenter);
-    mainMarker.setLatLng(cityCenter);
+    resetMapAndMarker();
   });
 };
 
 resetForm();
 
-// сообщения при отправке формы
-
 const renderSuccess = () => {
   renderSuccessMesssage();
   form.reset();
-  setAddress(cityCenter);
+  resetMapAndMarker();
 };
 
 const renderError = () => {
   renderErrorMesssage();
-  setAddress(cityCenter);
+  resetMapAndMarker();
 };
 
 const renderMessages = () => {
