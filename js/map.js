@@ -1,4 +1,8 @@
 import { createCard } from './cards.js';
+import { debounce } from './util.js';
+import { serverErrorMessage } from './message.js';
+import { serverRequest } from './fetch.js';
+import { filterData } from './filter.js';
 
 const LAYER = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 const LAYER_ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
@@ -7,11 +11,13 @@ const MAIN_MARKER_ANCHOR = [26, 52];
 const SECONDARY_MARKER_SIZE = [40, 40];
 const SECONDARY_MARKER_ANCHOR = [20, 40];
 const ZOOM = 12;
+const DECIMALS = 5;
+const OFFERS_COUNT = 10;
 
 const fields = document.querySelectorAll('fieldset, .map__filters-container > select');
 const mapContainer = document.querySelector('#map-canvas');
-const address = document.querySelector('#address');
 const adForm = document.querySelector('.ad-form');
+const address = adForm.querySelector('#address');
 const filterForm = document.querySelector('.map__filters');
 const map = L.map(mapContainer);
 const layerGroup = L.layerGroup().addTo(map);
@@ -56,7 +62,7 @@ const mainMarker = L.marker(
 mainMarker.addTo(map);
 
 const setAddress = ({ lat, lng }) => {
-  address.value = `Точный адрес: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+  address.value = `${lat.toFixed(DECIMALS)}, ${lng.toFixed(DECIMALS)}`;
 };
 
 setAddress(cityCenter);
@@ -93,12 +99,32 @@ const secondaryMarkers = (data) => {
   });
 };
 
+let pins = [];
+
+const onMapFiltersChange = debounce(() => {
+  removeMapPin();
+  secondaryMarkers(filterData(pins));
+});
+
+const onSuccess = (data) => {
+  pins = data.slice();
+  secondaryMarkers(pins.slice(0, OFFERS_COUNT));
+  filterForm.addEventListener('change', onMapFiltersChange);
+};
+
+const onError = () => {
+  serverErrorMessage();
+};
+
+serverRequest(onSuccess, onError, 'GET');
+
 const resetMapAndMarker = () => {
   mainMarker.setLatLng(cityCenter);
   setAddress(cityCenter);
   map.closePopup();
+  onMapFiltersChange();
 };
 
 setFormState();
 
-export { setAddress, resetMapAndMarker, secondaryMarkers, removeMapPin };
+export { onMapFiltersChange, resetMapAndMarker };

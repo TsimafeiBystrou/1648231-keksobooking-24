@@ -1,4 +1,4 @@
-import { resetMapAndMarker } from './map.js';
+import { onMapFiltersChange, resetMapAndMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { serverRequest } from './fetch.js';
 
@@ -6,16 +6,17 @@ const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
 const MIN_PRICE_VALUE = 0;
 const MAX_PRICE_VALUE = 1000000;
+const mapFilters = document.querySelector('.map__filters');
 const form = document.querySelector('.ad-form');
-const resetButton = document.querySelector('.ad-form__reset');
-const title = document.querySelector('#title');
-const price = document.querySelector('#price');
-const roomNumber = document.querySelector('#room_number');
-const type = document.querySelector('#type');
-const time = document.querySelector('.ad-form__element--time');
-const timeIn = document.querySelector('#timein');
-const timeOut = document.querySelector('#timeout');
-const guestNumber = document.querySelector('#capacity').querySelectorAll('option');
+const resetButton = form.querySelector('.ad-form__reset');
+const title = form.querySelector('#title');
+const price = form.querySelector('#price');
+const roomNumber = form.querySelector('#room_number');
+const type = form.querySelector('#type');
+const time = form.querySelector('.ad-form__element--time');
+const timeIn = form.querySelector('#timein');
+const timeOut = form.querySelector('#timeout');
+const guestNumber = form.querySelector('#capacity').querySelectorAll('option');
 
 const maxGuestsInRoom = {
   1: ['1'],
@@ -61,8 +62,8 @@ const validateRooms = () => {
   const roomValue = roomNumber.value;
 
   guestNumber.forEach((guest) => {
-    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1); // методом indexOf идет поиск первого индекса guest.value среди массива maxGuestsInRoom[roomValue]
-    guest.selected = maxGuestsInRoom[roomValue][0] === guest.value; // в случае, если value равно первому элементу в массиве, добавляется атбибут selected, в остальных случаях добавляются disabled и hidden
+    const isDisabled = (maxGuestsInRoom[roomValue].indexOf(guest.value) === -1);
+    guest.selected = maxGuestsInRoom[roomValue][0] === guest.value;
     guest.disabled = isDisabled;
     guest.hidden = isDisabled;
   });
@@ -94,7 +95,9 @@ const resetForm = () => {
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();
     form.reset();
+    mapFilters.reset();
     resetMapAndMarker();
+    onMapFiltersChange();
   });
 };
 
@@ -103,12 +106,13 @@ resetForm();
 const renderSuccess = () => {
   renderSuccessMesssage();
   form.reset();
+  mapFilters.reset();
   resetMapAndMarker();
+  onMapFiltersChange();
 };
 
 const renderError = () => {
   renderErrorMesssage();
-  resetMapAndMarker();
 };
 
 const renderMessages = () => {
