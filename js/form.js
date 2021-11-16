@@ -1,6 +1,7 @@
 import { onMapFiltersChange, resetMapAndMarker } from './map.js';
 import { renderErrorMesssage, renderSuccessMesssage } from './message.js';
 import { serverRequest } from './fetch.js';
+import { resetImages } from './preview.js';
 
 const MIN_TITLE_LENGTH = 30;
 const MAX_TITLE_LENGTH = 100;
@@ -73,6 +74,8 @@ const onRoomNumberChange = () => {
   validateRooms();
 };
 
+onRoomNumberChange();
+
 roomNumber.addEventListener('change', onRoomNumberChange);
 
 const onTimeChange = (evt) => {
@@ -86,7 +89,6 @@ const onPriceChange = () => {
   const priceSelect = minPrices[type.value];
   price.placeholder = priceSelect;
   price.min = priceSelect;
-
 };
 
 type.addEventListener('change', onPriceChange);
@@ -98,6 +100,7 @@ const resetForm = () => {
     mapFilters.reset();
     resetMapAndMarker();
     onMapFiltersChange();
+    resetImages();
   });
 };
 
@@ -109,6 +112,7 @@ const renderSuccess = () => {
   mapFilters.reset();
   resetMapAndMarker();
   onMapFiltersChange();
+  resetImages();
 };
 
 const renderError = () => {

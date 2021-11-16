@@ -1,6 +1,6 @@
 import { createCard } from './cards.js';
 import { debounce } from './util.js';
-import { serverErrorMessage } from './message.js';
+import { renderServerErrorMessage } from './message.js';
 import { serverRequest } from './fetch.js';
 import { filterData } from './filter.js';
 
@@ -35,6 +35,7 @@ const setFormState = () => {
   adForm.classList.toggle('.ad-form--disabled');
   filterForm.classList.toggle('.map__filters--disabled');
 };
+
 
 map.on('load', () => {
   setFormState();
@@ -81,7 +82,7 @@ const removeMapPin = () => {
   layerGroup.clearLayers();
 };
 
-const secondaryMarkers = (data) => {
+const renderSecondaryMarkers = (data) => {
   data.forEach((offer) => {
     const marker = L.marker({
       lat: offer.location.lat,
@@ -103,17 +104,17 @@ let pins = [];
 
 const onMapFiltersChange = debounce(() => {
   removeMapPin();
-  secondaryMarkers(filterData(pins));
+  renderSecondaryMarkers(filterData(pins));
 });
 
 const onSuccess = (data) => {
   pins = data.slice();
-  secondaryMarkers(pins.slice(0, OFFERS_COUNT));
+  renderSecondaryMarkers(pins.slice(0, OFFERS_COUNT));
   filterForm.addEventListener('change', onMapFiltersChange);
 };
 
 const onError = () => {
-  serverErrorMessage();
+  renderServerErrorMessage();
 };
 
 serverRequest(onSuccess, onError, 'GET');
